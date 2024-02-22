@@ -1,9 +1,10 @@
+import { auth } from "@/auth";
 import { Logo, MobileNav, WidthWrapper } from "@/components";
 import { Button } from "@/components/ui";
 import Link from "next/link";
 
 export async function Navbar() {
-  const user = false;
+  const session = await auth();
   return (
     <nav
       role="navigation"
@@ -24,7 +25,7 @@ export async function Navbar() {
             <Button variant="ghost" asChild>
               <Link href="/contact">Contact</Link>
             </Button>
-            {user ? (
+            {session?.user ? (
               <Button asChild variant="ghost">
                 <Link href="/dashboard">Go to Dashboard</Link>
               </Button>
