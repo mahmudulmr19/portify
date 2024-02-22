@@ -31,6 +31,12 @@ export function CardWrapper({
         <CardTitle>{label}</CardTitle>
       </CardHeader>
       <CardContent>{children}</CardContent>
+
+      {social && (
+        <CardFooter>
+          <Social />
+        </CardFooter>
+      )}
       <CardFooter>
         <BackButton
           label={backButtonLabel}
@@ -38,11 +44,6 @@ export function CardWrapper({
           hightLightText={backButtonHightLightText}
         />
       </CardFooter>
-      {social && (
-        <CardFooter>
-          <Social />
-        </CardFooter>
-      )}
     </Card>
   );
 }
