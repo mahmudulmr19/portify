@@ -7,14 +7,20 @@ import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
   try {
-    const body = await SignUpSchema.safeParseAsync(req.body);
+    const body = await SignUpSchema.safeParseAsync(await req.json());
     if (!body.success) {
-      return NextResponse.json({ message: "Invalid body data" });
+      return NextResponse.json(
+        { message: "Invalid body data" },
+        { status: 400 }
+      );
     }
     const { name, email, password } = body.data;
     const existUser = await getUserByEmail(email);
     if (existUser) {
-      return NextResponse.json({ message: "Email already in use" });
+      return NextResponse.json(
+        { message: "Email already in use" },
+        { status: 400 }
+      );
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
