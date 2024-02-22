@@ -10,7 +10,7 @@ const SignInSchema = z.object({
 });
 
 const SignUpSchema = SignInSchema.extend({
-  name: z.string({ required_error: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" }),
 });
 
 export type SignInValues = z.infer<typeof SignInSchema>;
