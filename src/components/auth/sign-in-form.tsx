@@ -1,5 +1,5 @@
 "use client";
-
+import * as React from "react";
 import { CardWrapper } from "@/components/auth";
 import { SignInSchema, SignInValues } from "@/validators/auth";
 import { useForm } from "react-hook-form";
@@ -11,9 +11,28 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Label, Input, PasswordInput, Button } from "@/components/ui";
+import {
+  Label,
+  Input,
+  PasswordInput,
+  Button,
+  FormStatus,
+} from "@/components/ui";
+import { SignIn } from "@/server/auth";
+import { DEFAULT_LOGIN_REDIRECT_URL } from "@/routes";
+import { useSearchParams } from "next/navigation";
+import { FaSpinner } from "react-icons/fa6";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 export function SignInForm() {
+  const [formStatus, setFormStatus] = React.useState<{
+    type: "success" | "error";
+    message: string;
+  }>({
+    type: "success",
+    message: "",
+  });
+  const searchParams = useSearchParams();
   const form = useForm<SignInValues>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
@@ -22,8 +41,27 @@ export function SignInForm() {
     },
   });
 
-  function onSubmit(values: SignInValues) {
-    console.log(values);
+  async function onSubmit(values: SignInValues) {
+    setFormStatus({
+      type: "success",
+      message: "",
+    });
+    const result = await SignIn(values);
+    if (result.redirect) {
+      window.location.href =
+        searchParams.get("next") ?? DEFAULT_LOGIN_REDIRECT_URL;
+    }
+    if (result.error) {
+      setFormStatus({
+        type: "error",
+        message: result.error,
+      });
+    } else {
+      setFormStatus({
+        type: "success",
+        message: result.success!,
+      });
+    }
   }
   return (
     <CardWrapper
@@ -61,7 +99,15 @@ export function SignInForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full">Sign In</Button>
+          <FormStatus type={formStatus.type} message={formStatus.message} />
+          <Button className="w-full" disabled={form.formState.isSubmitting}>
+            Sign In
+            {form.formState.isSubmitting ? (
+              <FaSpinner className="ml-2 h-4 w-4 animate-spin" />
+            ) : (
+              <ArrowRightIcon className="ml-2 h-5 w-5" />
+            )}
+          </Button>
         </form>
       </Form>
     </CardWrapper>
