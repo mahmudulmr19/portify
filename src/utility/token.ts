@@ -2,8 +2,8 @@ import { db } from "@/lib/db";
 import { Token, TokenType } from "@prisma/client";
 import crypto from "crypto";
 
-export async function getTokenById(id: string): Promise<Token | null> {
-  const token = await db.token.findUnique({ where: { id } });
+export async function getTokenByToken(t: string): Promise<Token | null> {
+  const token = await db.token.findUnique({ where: { token: t } });
   return token;
 }
 
