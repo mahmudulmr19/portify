@@ -2,7 +2,7 @@
  * Public routes accessible without authentication
  * @type {string[]}
  */
-const publicRoutes = ["/", "/contact", "/support", "/legal/:path*"];
+const publicRoutes = ["/", "/contact", "/support", "/legal/:path*", "/pricing"];
 
 /**
  * Authentication routes requiring user authentication
