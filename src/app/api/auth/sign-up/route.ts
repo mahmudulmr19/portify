@@ -2,6 +2,7 @@ import { SignUpSchema } from "@/validators/auth";
 import { NextResponse } from "next/server";
 import { getUserByEmail } from "@/utility/user";
 import { db } from "@/lib/db";
+import { sendVerificationEmail } from "@/emails/emails";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
@@ -21,7 +22,7 @@ export async function POST(req: Request) {
       data: { name, email, password: hashedPassword },
     });
 
-    // TODO: send verification email into the user email
+    await sendVerificationEmail(email);
     return NextResponse.json({ message: "Confirmation email sent!" });
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
