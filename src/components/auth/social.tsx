@@ -1,10 +1,11 @@
 "use client";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui";
+import { signIn } from "next-auth/react";
 
 export function Social() {
   function handleClick(provider: "google" | "facebook") {
-    // TODO: later on handle
+    signIn(provider);
   }
   return (
     <div className="w-full flex items-center gap-x-2">
