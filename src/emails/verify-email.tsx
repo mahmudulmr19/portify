@@ -17,7 +17,7 @@ interface VerifyEmailProps {
   link: string;
 }
 
-const VerifyEmail: React.FC<VerifyEmailProps> = ({
+export const VerifyEmail: React.FC<VerifyEmailProps> = ({
   link,
 }: VerifyEmailProps) => {
   return (
@@ -74,5 +74,3 @@ const VerifyEmail: React.FC<VerifyEmailProps> = ({
     </Tailwind>
   );
 };
-
-export default VerifyEmail;
