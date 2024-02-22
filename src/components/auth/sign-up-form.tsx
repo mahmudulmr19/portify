@@ -1,5 +1,5 @@
 "use client";
-
+import * as React from "react";
 import { CardWrapper } from "@/components/auth";
 import { SignUpSchema, SignUpValues } from "@/validators/auth";
 import { useForm } from "react-hook-form";
@@ -11,9 +11,26 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Label, Input, PasswordInput, Button } from "@/components/ui";
+import {
+  Label,
+  Input,
+  PasswordInput,
+  Button,
+  FormStatus,
+} from "@/components/ui";
+import { FaSpinner } from "react-icons/fa6";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import axios from "axios";
 
 export function SignUpForm() {
+  const [formStatus, setFormStatus] = React.useState<{
+    type: "success" | "error";
+    message: string;
+  }>({
+    type: "success",
+    message: "",
+  });
+
   const form = useForm<SignUpValues>({
     resolver: zodResolver(SignUpSchema),
     defaultValues: {
@@ -23,8 +40,23 @@ export function SignUpForm() {
     },
   });
 
-  function onSubmit(values: SignUpValues) {
-    console.log(values);
+  async function onSubmit(values: SignUpValues) {
+    setFormStatus({
+      type: "success",
+      message: "",
+    });
+    try {
+      const { data } = await axios.post("/api/auth/sign-up", values);
+      setFormStatus({
+        type: "success",
+        message: data.message,
+      });
+    } catch (error: any) {
+      setFormStatus({
+        type: "error",
+        message: error.response.data.message,
+      });
+    }
   }
   return (
     <CardWrapper
@@ -75,7 +107,15 @@ export function SignUpForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full">Sign Up</Button>
+          <FormStatus type={formStatus.type} message={formStatus.message} />
+          <Button className="w-full" disabled={form.formState.isSubmitting}>
+            Sign Up
+            {form.formState.isSubmitting ? (
+              <FaSpinner className="ml-2 h-4 w-4 animate-spin" />
+            ) : (
+              <ArrowRightIcon className="ml-2 h-5 w-5" />
+            )}
+          </Button>
         </form>
       </Form>
     </CardWrapper>
