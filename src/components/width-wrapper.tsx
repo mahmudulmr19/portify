@@ -1,14 +1,17 @@
-import React from "react";
+import { HTMLProps } from "react";
 import { cn } from "@/lib/utils";
 
 export function WidthWrapper({
   children,
   className,
   ...rest
-}: React.HTMLProps<HTMLDivElement>) {
+}: HTMLProps<HTMLDivElement>) {
   return (
     <div
-      className={cn("mx-auto w-full max-w-[1400px] px-2.5 md:px-20", className)}
+      className={cn(
+        "mx-auto w-full max-w-screen-2xl px-5 md:px-10 lg:px-14",
+        className
+      )}
       {...rest}
     >
       {children}

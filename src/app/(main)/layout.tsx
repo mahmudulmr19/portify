@@ -1,16 +1,12 @@
-import React from "react";
+import { ReactNode } from "react";
 import { Footer, Navbar } from "@/components";
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function MainLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="w-full h-full">
+    <main className="w-full h-full">
       <Navbar />
       {children}
       <Footer />
-    </div>
+    </main>
   );
 }
