@@ -48,7 +48,7 @@ export function Hero() {
           effortlessly and make a lasting impression.
         </p>
 
-        <Button asChild className="mt-5" size="lg">
+        <Button asChild className="mt-5">
           <Link href="/auth/sign-up">
             Start for free! <ArrowRightIcon className="ml-2 h-5 w-5" />
           </Link>
