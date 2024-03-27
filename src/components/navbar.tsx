@@ -35,7 +35,7 @@ export async function Navbar() {
                   <Link href="/auth/sign-in"> Sign in</Link>
                 </Button>
                 <Button asChild>
-                  <Link href="/auth/sign-up">Try for free</Link>
+                  <Link href="/auth/sign-up">Start for free</Link>
                 </Button>
               </>
             )}
