@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Hero } from "@/components/hero";
 import { Banner } from "@/components/banner";
+import { Faq } from "@/components/faq";
 
 export const metadata = {
   title: {
@@ -14,6 +15,7 @@ export default function HomePage() {
   return (
     <Fragment>
       <Hero />
+      <Faq />
       <Banner />
     </Fragment>
   );
