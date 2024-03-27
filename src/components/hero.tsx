@@ -48,7 +48,7 @@ export function Hero() {
 
       <Button asChild className="mt-5" size="lg">
         <Link href="/auth/sign-up">
-          Try for free! <ArrowRightIcon className="ml-2 h-5 w-5" />
+          Start for free! <ArrowRightIcon className="ml-2 h-5 w-5" />
         </Link>
       </Button>
     </WidthWrapper>
