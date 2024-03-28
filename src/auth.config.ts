@@ -11,7 +11,6 @@ export const authConfig = {
     signIn: "/auth/sign-in",
     error: "/auth/error",
   },
-  callbacks: {},
   providers: [
     Credentials({
       async authorize(credentials) {
