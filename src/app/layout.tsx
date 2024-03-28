@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("grainy font-sans antialiased", inter.variable)}>
+      <body className={cn("font-sans antialiased", inter.variable)}>
         <Toaster position="top-right" richColors />
         {children}
       </body>
