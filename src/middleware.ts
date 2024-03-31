@@ -37,6 +37,10 @@ export default auth((req) => {
       new URL(`/auth/sign-in?next=${next}`, nextUrl)
     );
   }
+
+  if (isPublicRoutes && isLoggedIn) {
+    return NextResponse.redirect(new URL("/dashboard", nextUrl));
+  }
   return NextResponse.next();
 });
 
