@@ -9,12 +9,12 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
   params: {
-    name: string;
+    url: string;
   };
 }) {
   const session = await auth();
-  const name = params.name;
-  const organization = await getOrganization(name, session?.user?.id!);
+  const url = params.url;
+  const organization = await getOrganization(url, session?.user?.id!);
 
   if (!organization) {
     return redirect("/onboarding");
