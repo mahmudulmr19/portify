@@ -64,8 +64,9 @@ enum TokenType {
 }
 
 model Organization {
-  id     String  @id @default(cuid())
-  name   String  @unique
-  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String?
+  id              String  @id @default(cuid())
+  name            String
+  User            User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String?
+  organizationURL String  @unique
 }
