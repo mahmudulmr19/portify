@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { generateSlug } from "@/utility/slug";
 
 export async function getOrganization(url: string, userId: string) {
   try {
@@ -10,7 +11,7 @@ export async function getOrganization(url: string, userId: string) {
       });
     }
 
-    return await db.organization.findUnique({ where: { url } });
+    await db.organization.findUnique({ where: { url } });
   } catch (error) {
     console.log("Error getting organization: getOrganization", error);
     return null;
@@ -21,7 +22,7 @@ export async function createOrganization(name: string) {
   try {
     const session = await auth();
     await db.organization.create({
-      data: { name, userId: session?.user?.id, url: "" },
+      data: { name, userId: session?.user?.id, url: generateSlug(name) },
     });
 
     return {

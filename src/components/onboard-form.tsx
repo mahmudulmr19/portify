@@ -37,6 +37,7 @@ export function OnboardForm() {
     if (result.error) {
       return form.setError("name", { message: result.error });
     }
+    window.location.href = "/dashboard";
     toast.success("Organization created successfully");
   }
   return (
@@ -65,7 +66,11 @@ export function OnboardForm() {
                 </FormItem>
               )}
             />
-            <Button className="w-full" type="submit">
+            <Button
+              className="w-full"
+              type="submit"
+              disabled={form.formState.isSubmitting}
+            >
               Create Organization
             </Button>
           </form>
